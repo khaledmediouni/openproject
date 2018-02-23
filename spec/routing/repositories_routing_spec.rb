@@ -62,6 +62,18 @@ describe RepositoriesController, type: :routing do
     }
   end
 
+  describe 'changes with js file (regression #24960)' do
+    it {
+      expect(get('/projects/testproject/repository/revisions/my-branch/changes/assets/test.js'))
+        .to route_to(controller: 'repositories',
+                     action: 'changes',
+                     path: 'assets/test.js',
+                     rev: 'my-branch',
+                     format: 'html',
+                     project_id: 'testproject')
+    }
+  end
+
   describe 'show with git tags (regression test #27230)' do
     it {
       expect(get('/projects/testproject/repository/sub?rev=mytags%2Ffoo&branch=&tag=mytags%2Ffoo'))
